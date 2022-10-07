@@ -12,11 +12,15 @@ function App() {
   const [mes, setMes] = useState('');
   const [dia, setDia] = useState();
   const [resultado, setResultado] = useState();
+  
+  const [gramas, setGramas] = useState();
+  const [resposta, setResposta] = useState();
 
   function Calcular(){
     let total = pequeno * 13.50  + medio * 15 + grande * 17.50;
     let desconto = total * desc/100
 
+    
     let final = total - desconto
     setResul(final);
     }
@@ -30,9 +34,26 @@ function App() {
       }
     }
 
+    
+     function calcularSorvete(qtd) {
+           if (qtd <= 0 || qtd == undefined)
+              return 'Preço Inválido'
+           let preco = 3.5
+           if (qtd >= 1000) {
+           preco = 3    
+           }
+    return preco * (qtd / 100)
+  }
+    
+
+    function calcularClick() {
+        const totalzinho = calcularSorvete(gramas);
+        setResposta(totalzinho);
+    }
+
       function verificarClick() {
-  const resp = CalcularMes(mes, dia)
-  setResultado(resp);}
+      const resp = CalcularMes(mes, dia)
+      setResultado(resp);}
 
   
     return(
@@ -70,9 +91,25 @@ function App() {
           <span>É do signo de Libra? {resultado}</span>
       </div>
     </div>
-    <h1>SORVETE DEIXA MINHA BOCA VERDE</h1>
+        <div>
+                <h1>SORVETE DEIXA MINHA BOCA VERDE</h1>
+                <p> Quantidade de gramas </p>
+                <input type='number' value={gramas} onChange={e => setGramas(e.target.value)} />
+
+                <button onClick={calcularClick}> calcular</button>
+
+                <div>
+                    <span>O total à pagar é R$ {resposta}  </span>
+                </div>
+            </div>
     </div>
  );
     }
   
 export default App;
+
+
+
+
+
+
