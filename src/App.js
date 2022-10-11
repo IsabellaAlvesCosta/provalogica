@@ -4,6 +4,8 @@ import './App.css';
 import Acai from './assets/images/acai.png'
 import Libra from './assets/images/libraa.png'
 import Sorvete from './assets/images/picole.png'
+import Dinheiro from './assets/images/din.jpg'
+import Carro from './assets/images/carro.jpg'
 
 function App() {
   const[grande, setGrande]= useState(0);
@@ -168,6 +170,7 @@ function App() {
             </div>
             <div>
               <h1>CALCULAR SALÁRIO</h1>
+              <img src={Dinheiro} />
               <p>Informe seu salário base: <input type='number' value={salario} onChange={e => setSalario(Number(e.target.value))} />  </p>
               <p>Informe seu bônus mensal: <input type='number'value={bonus} onChange={e => setBonus(Number(e.target.value))}/> </p>
               <p>Total de desconto: <input type='number' value={desco} onChange={e => setDesco(Number(e.target.value))}/> </p>
@@ -178,6 +181,7 @@ function App() {
 
         <div>
           <h1>CALCULAR PARADA</h1>
+          <img src={Carro} />
           <p>Informe capacidade do tanque de combustível: <input type='number' value={tanque} onChange={e => setTanque(Number(e.target.value))} /></p>
           <p>Informe capacidade de consumo do veículo: <input type='number'  value={consumo} onChange={e => setConsumo(Number(e.target.value))}/></p>
           <p>Informe a distância da viagem: <input type='number' value={distancia} onChange={e => setDistancia(Number(e.target.value))} /></p>
