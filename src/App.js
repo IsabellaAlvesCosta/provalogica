@@ -86,30 +86,30 @@ function App() {
         const resp = totaldeParadas(tanque, consumo, distancia);
         setTotalParadas(resp);
       }
+      
 
-      function calcularTemperatura(temp){
-        let msg = '';
-
-        if(temp >= 41){
+      function calcularTemperatura(){
+        let msg = "";
+        
+        if(temperatura >= 41){
           msg = 'Hipertemia'
         }
-        else if(temp >=39.6 && temp<41){
+        else if(temperatura >=39.6){
           msg = 'Febre alta'
         }
-        else if(temp>=37.6 && temp<39.6){
+        else if(temperatura >=37.6){
           msg = 'febre'
         }
-        else if(temp >=36 && temp<37.6){
-          msg='Normal'
+        else if(temperatura < 36) {
+          msg ='hiportermia'
         }
-        else if(temp< 36) {
-          msg='hipotermia'
+        else if(temperatura >=36 || temperatura < 37.6){
+          msg ='Normal'
         }
-        else{
-          msg='temperatura inválida'
-        }
-        return setResulTemperatura (msg);
+        setResulTemperatura(msg);
       }
+
+      
 
   
     return(
@@ -190,7 +190,7 @@ function App() {
           <p>Informe temperatura <input type='number' value={temperatura} onChange={e => setTemperatura(Number(e.target.value))} /></p>
           <button onClick={calcularTemperatura} className='calcular-botao'>Calcular</button>
           <h3>
-            {resulTemperatura}</h3>
+            Isso é {resulTemperatura}</h3>
         </div>
     </div>
  );
