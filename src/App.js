@@ -13,8 +13,17 @@ function App() {
   const [dia, setDia] = useState();
   const [resultado, setResultado] = useState();
   
-  const [gramas, setGramas] = useState();
-  const [resposta, setResposta] = useState();
+  const [gramas, setGramas] = useState(0);
+  const [resposta, setResposta] = useState(0);
+  const [salario, setSalario] = useState(0);
+  const [bonus, setBonus] = useState(0);
+  const [desco, setDesco] = useState(0);
+  const [totalSalari, setTotalSalari] = useState(0); 
+
+  const [tanque, setTanque] = useState();
+  const [consumo, setConsumo] = useState();
+  const [distancia, setDistancia] = useState();
+  const [totalParadas, setTotalParadas] = useState();
 
   function Calcular(){
     let total = pequeno * 13.50  + medio * 15 + grande * 17.50;
@@ -53,6 +62,25 @@ function App() {
       const resp = CalcularMes(mes, dia)
       setResultado(resp);}
 
+      function totalSalario(){
+        let total = (salario * bonus) / 100;
+        let desconto = (salario + total) - desco;
+
+        let resp = desconto;
+        setTotalSalari(resp);
+      }
+
+      function totaldeParadas(capac, consu, dist){
+        let gasto = dist / (capac * consu);
+        let paradas = Math.ceil(gasto);
+        return paradas;
+      }
+
+      function repost(){
+        const resp = totaldeParadas(tanque, consumo, distancia);
+        setTotalParadas(resp);
+      }
+
   
     return(
     <div className="App">
@@ -74,9 +102,9 @@ function App() {
           Porcentagem de desconto <input type='number'  value={desc} onChange={e => setDesc(Number(e.target.value))}/><button onClick={Calcular} className='calcular-botao'>Calcular</button>
         </div>
         
-        <span >
+        <h3>
           O resultado é {resul}
-        </span>
+        </h3>
       
       </div>
       <div>
@@ -92,7 +120,7 @@ function App() {
 
       </div>
       <div>
-          <span>É do signo de Libra? {resultado}</span>
+          <h3>É do signo de Libra? {resultado}</h3>
       </div>
     </div>
         <div>
@@ -101,9 +129,27 @@ function App() {
                    Quantidade de gramas     <input type='number' value={gramas} onChange={e => setGramas(e.target.value)} /> <button onClick={calcularClick} className='calcular-botao'> Calcular</button>
                 </div>
                 <div>
-                    <span>O total à pagar é R$ {resposta}  </span>
+                    <h3>O total à pagar é R$ {resposta}  </h3>
                 </div>
             </div>
+            <div>
+              <h1>CALCULAR SALÁRIO</h1>
+              <p>Informe seu salário base: <input type='number' value={salario} onChange={e => setSalario(Number(e.target.value))} />  </p>
+              <p>Informe seu bônus mensal: <input type='number'value={bonus} onChange={e => setBonus(Number(e.target.value))}/> </p>
+              <p>Total de desconto: <input type='number' value={desco} onChange={e => setDesco(Number(e.target.value))}/> </p>
+              <button onClick={totalSalario} className='calcular-botao'>Calcular</button>
+              <h3>Seu salário liquído é R${totalSalari}</h3>
+            </div>
+            
+
+        <div>
+          <h1>CALCULAR PARADA</h1>
+          <p>Informe capacidade do tanque de combustível: <input type='number' value={tanque} onChange={e => setTanque(Number(e.target.value))} /></p>
+          <p>Informe capacidade de consumo do veículo: <input type='number'  value={consumo} onChange={e => setConsumo(Number(e.target.value))}/></p>
+          <p>Informe a distância da viagem: <input type='number' value={distancia} onChange={e => setDistancia(Number(e.target.value))} /></p>
+        <button onClick={repost} className='calcular-botao'>Calcular</button>
+        <h3>O total de paradas é {totalParadas}</h3>
+        </div> 
     </div>
  );
     }
