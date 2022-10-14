@@ -33,6 +33,17 @@ function App() {
   const [temperatura, setTemperatura] = useState();
   const [resulTemperatura, setResulTemperatura] = useState();
 
+  const[ganho, setGanho]= useState();
+  const[gasto, setGasto]= useState();
+  const[totalOrcamento, setTotalOrcamento]= useState();
+
+  const[inteira, setInteira] = useState(0);
+  const[meia, setMeia] = useState(0);
+  const[diaSemana, setDiaSemana] = useState("");
+  const[nacional, setNacional] = useState(false);
+  const[cinemaResul, setCinemaResul] = useState("");
+
+
   function Calcular(){
     let total = pequeno * 13.50  + medio * 15 + grande * 17.50;
     let desconto = total * desc/100    
@@ -110,6 +121,55 @@ function App() {
         }
         setResulTemperatura(msg);
       }
+
+      function Orcamento(){
+        let msg="";
+        let porcentagem = (gasto*100)/ganho;
+        
+        if(porcentagem >=81){
+           msg ="Cuidado seu orçamento pode estar comprometido"
+        }
+        else if(porcentagem >=51 ){
+           msg="Atenção! Melhor conter seus gastos "
+        }
+        else if(porcentagem >=21 ){
+           msg="Muito bem"
+        }
+        else if(porcentagem >=0 ){
+           msg="Parabéns" 
+        }
+        else if(gasto > ganho ){
+          msg='Orçamento comprometido! Hora de rever seus gastos'
+        }
+        else{
+           msg="Infome um valor válido"
+        }
+        setTotalOrcamento(msg);
+      }
+
+      function Cinema(){
+        let msg='';
+        let meiazinha = 14.25 * meia;
+        let inteirazinha = 28.5 * inteira;
+        let nacionalA = (meiazinha / 5) + (inteirazinha / 5);
+
+        let quarta = (meia  + inteira) * 14.25;
+        
+        
+        if(nacional){
+         msg= nacionalA;
+        }
+        else if(diaSemana == "Quarta-Feira"){
+          msg = quarta
+        }
+        else{
+         msg= meiazinha +inteirazinha;
+        }
+
+        
+        
+        setCinemaResul(msg);
+   }
 
       
 
@@ -195,6 +255,35 @@ function App() {
           <button onClick={calcularTemperatura} className='calcular-botao'>Calcular</button>
           <h3>
             Isso é {resulTemperatura}</h3>
+        </div>
+        <div>
+          <h1>ORÇAMENTO MENSAL</h1>
+          <div>
+            <p>Informe seus ganhos:<input type='number'value={ganho} onChange={e => setGanho(Number(e.target.value))}/></p>
+          </div>
+          <div>
+            <p>Informe seus gastos:<input type='number' value={gasto} onChange={e => setGasto(Number(e.target.value))}/></p>
+          </div>
+          <button onClick={Orcamento}>Calcular</button>
+          <h3> {totalOrcamento}</h3>
+        </div>
+        <div>
+          <h1>CINEMAZINHO MANEIRINHO</h1>
+          <div>
+            <p>Total de ingressos inteira:<input type="number" value={inteira} onChange={e => setInteira(Number(e.target.value))} /></p>
+          </div>
+          <div>
+            <p>Total de ingressos meia:<input type="number" value={meia} onChange={e => setMeia(Number(e.target.value))} /></p>
+          </div>
+          <div>
+            <p>Dia da semana:<input type="text" value={diaSemana} onChange={e => setDiaSemana(e.target.value)} /></p>
+          </div>
+          <div>
+            Nacional?<input type="checkbox" value={nacional} onChange={e => setNacional(Boolean(e.target.value))} />
+          </div>
+          <button onClick={Cinema}>Calcular</button>
+          <h3>{cinemaResul}</h3>
+
         </div>
     </div>
  );
