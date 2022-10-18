@@ -43,10 +43,17 @@ function App() {
   const[nacional, setNacional] = useState(false);
   const[cinemaResul, setCinemaResul] = useState("");
 
-  const [ninicio, setNinicio] = useState(0);
-  const [nfinal, setNfinal] = useState(0);
-  const [totalnumero, setTotalnumero] = useState(0);
+  const [ninicio, setNinicio] = useState();
+  const [nfinal, setNfinal] = useState();
+  const [totalnumero, setTotalnumero] = useState([]);
 
+  const [quantidadeEstrela,setQuantidadeEstrela]=useState();
+  const [re,setRe]=useState([]);
+
+
+  const [qtdlinha,setQtdlinha]= useState();
+  const [qtdcoluna,setQtdcoluna]=useState();
+  const [resullinha,Setresullinha]=useState([])
 
   function Calcular(){
     let total = pequeno * 13.50  + medio * 15 + grande * 17.50;
@@ -74,6 +81,7 @@ function App() {
            }
     return preco * (qtd / 100)
   }
+
     
 
     function calcularClick() {
@@ -177,12 +185,31 @@ function App() {
 
    function  NumerosNaturais()
 {
-    for (let cont = setNinicio; cont <=setNfinal; cont++)
+  let x=[];
+    for(let i=ninicio; i < nfinal;i++)
     {
-        setTotalnumero(cont);
+       x=[...x,",",i];
+      setTotalnumero(x);
     }
 }
+  function linha(){
+    let x=[];
+    for(let i=0; i<quantidadeEstrela; i++){
+      x.push("*");
+    }
+    setRe(x);
+  }
 
+  function retangulo(){
+    let x=[];
+    for(let i=0;i<qtdlinha;i++ ){
+      for(let k=0;k<qtdcoluna;k++){
+        x.push(resullinha);
+      }
+      x.push('');
+    }
+    return x;
+  }
 
 
       
@@ -308,6 +335,29 @@ function App() {
           </div>
           <button onClick={NumerosNaturais}>Resultado</button>
           <h3>{totalnumero}</h3>
+        </div>
+        <div>
+          <h1>LEIA AS ESTRELINHA </h1>
+            <div>
+              <p>Informe o numero de estrelas: <input type="number" value={quantidadeEstrela} onChange={e =>setQuantidadeEstrela(Number(e.target.value))} /></p>
+            </div>
+              <button onClick={linha}>AA</button>
+            <h3>
+              {re}
+            </h3>
+        </div>
+        <div>
+          <h1>RETANGULO DI CRIA</h1>
+          <div>
+            <p>Informe o número de colunas: <input type="number" value={qtdcoluna} onChange={e =>setQtdcoluna(Number(e.target.value))} /></p>
+          </div>
+          <div>
+            <p>infome o número de linhas: <input type="number" value={qtdlinha} onChange={e =>setQtdlinha(Number(e.target.value))} /></p>
+          </div>
+          <button onClick={retangulo}>Resultado</button>
+          <div>
+            {resullinha}
+          </div>
         </div>
     </div>
  );
