@@ -188,7 +188,7 @@ function App() {
   let x=[];
     for(let i=ninicio; i < nfinal;i++)
     {
-       x=[...x,",",i];
+       x=[...x,i];
       setTotalnumero(x);
     }
 }
@@ -204,11 +204,11 @@ function App() {
     let x=[];
     for(let i=0;i<qtdlinha;i++ ){
       for(let k=0;k<qtdcoluna;k++){
-        x.push(resullinha);
+        x.push("*");
       }
-      x.push('');
+      x.push(resullinha);
     }
-    return x;
+    Setresullinha(x);
   }
 
 
