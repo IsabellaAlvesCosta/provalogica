@@ -43,6 +43,10 @@ function App() {
   const[nacional, setNacional] = useState(false);
   const[cinemaResul, setCinemaResul] = useState("");
 
+  const [ninicio, setNinicio] = useState(0);
+  const [nfinal, setNfinal] = useState(0);
+  const [totalnumero, setTotalnumero] = useState(0);
+
 
   function Calcular(){
     let total = pequeno * 13.50  + medio * 15 + grande * 17.50;
@@ -171,6 +175,16 @@ function App() {
         setCinemaResul(msg);
    }
 
+   function  NumerosNaturais()
+{
+    for (let cont = setNinicio; cont <=setNfinal; cont++)
+    {
+        setTotalnumero(cont);
+    }
+}
+
+
+
       
 
   
@@ -283,7 +297,17 @@ function App() {
           </div>
           <button onClick={Cinema}>Calcular</button>
           <h3>{cinemaResul}</h3>
-
+        </div>
+        <div>
+          <h1>NÚMEROS NATURAIS</h1>
+          <div>
+            <p>Informe o número de início:<input type="number" value={ninicio} onChange={e => setNinicio(Number(e.target.value))} /></p>
+          </div>
+          <div>
+            <p>Informe o número final:<input type="number" value={nfinal} onChange={e => setNfinal(Number(e.target.value))} /></p>
+          </div>
+          <button onClick={NumerosNaturais}>Resultado</button>
+          <h3>{totalnumero}</h3>
         </div>
     </div>
  );
