@@ -6,6 +6,10 @@ import Libra from './assets/images/libraa.png'
 import Sorvete from './assets/images/picole.png'
 import Dinheiro from './assets/images/din.jpg'
 import Carro from './assets/images/carro.jpg'
+import Temp from './assets/images/temp.jpg'
+import Orcamentozinho from './assets/images/orcamento.jpg'
+import Cinemaa from './assets/images/cinema.jpg'
+import usestate from 'usestate';
 
 function App() {
   const[grande, setGrande]= useState(0);
@@ -51,9 +55,16 @@ function App() {
   const [re,setRe]=useState([]);
 
 
-  const [qtdlinha,setQtdlinha]= useState();
-  const [qtdcoluna,setQtdcoluna]=useState();
-  const [resullinha,Setresullinha]=useState([])
+  const [coluna, setColuna] = useState (1);
+  const [linhas, setLinhas] = useState(1);
+  const [opcao,setOpcao]= useState('asterisco');
+  const [ resulRetangulo,setResulRetangulo] = useState([]);
+  
+  
+
+  const[qtdAluno,setQtdAluno]=useState();
+  const[qtdLitros,setQtdLitros]=useState();
+  const[qtdMinimo,setQtdMinimo]=useState();
 
   function Calcular(){
     let total = pequeno * 13.50  + medio * 15 + grande * 17.50;
@@ -200,18 +211,31 @@ function App() {
     setRe(x);
   }
 
-  function retangulo(){
-    let x=[];
-    for(let i=0;i<qtdlinha;i++ ){
-      for(let k=0;k<qtdcoluna;k++){
-        x.push("*");
-      }
-      x.push(resullinha);
-    }
-    Setresullinha(x);
+function desenharRetangulo(l,c,simbolo){
+  let matriz = []
+  let retangulo = [];
+
+  for(let i = 0; i<l; i++){
+      retangulo[i] = simbolo
+  for(let j=0; j<c; j++){
+      matriz [j] = new Array(retangulo)
   }
+      retangulo.push('')
+
+  }
+  return matriz;
+}
+function calcularRetangulo(){
+
+  setResposta(desenharRetangulo (linhas,coluna, opcao==='asterisco' ? '*' : '▆') );
+
+}
 
 
+
+  function cafe(){
+
+  }
       
 
   
@@ -292,6 +316,7 @@ function App() {
 
         <div>
           <h1>TEMPERATURA</h1>
+          <img src={Temp} />
           <p>Informe temperatura <input type='number' value={temperatura} onChange={e => setTemperatura(Number(e.target.value))} /></p>
           <button onClick={calcularTemperatura} className='calcular-botao'>Calcular</button>
           <h3>
@@ -299,17 +324,19 @@ function App() {
         </div>
         <div>
           <h1>ORÇAMENTO MENSAL</h1>
+          <img src={Orcamentozinho} />
           <div>
             <p>Informe seus ganhos:<input type='number'value={ganho} onChange={e => setGanho(Number(e.target.value))}/></p>
           </div>
           <div>
             <p>Informe seus gastos:<input type='number' value={gasto} onChange={e => setGasto(Number(e.target.value))}/></p>
           </div>
-          <button onClick={Orcamento}>Calcular</button>
+          <button onClick={Orcamento}className='calcular-botao'>Calcular</button>
           <h3> {totalOrcamento}</h3>
         </div>
         <div>
           <h1>CINEMAZINHO MANEIRINHO</h1>
+          <img src={Cinemaa} />
           <div>
             <p>Total de ingressos inteira:<input type="number" value={inteira} onChange={e => setInteira(Number(e.target.value))} /></p>
           </div>
@@ -322,7 +349,7 @@ function App() {
           <div>
             Nacional?<input type="checkbox" value={nacional} onChange={e => setNacional(Boolean(e.target.value))} />
           </div>
-          <button onClick={Cinema}>Calcular</button>
+          <button onClick={Cinema} className='calcular-botao'>Calcular</button>
           <h3>{cinemaResul}</h3>
         </div>
         <div>
@@ -333,7 +360,7 @@ function App() {
           <div>
             <p>Informe o número final:<input type="number" value={nfinal} onChange={e => setNfinal(Number(e.target.value))} /></p>
           </div>
-          <button onClick={NumerosNaturais}>Resultado</button>
+          <button onClick={NumerosNaturais}className='calcular-botao'>Resultado</button>
           <h3>{totalnumero}</h3>
         </div>
         <div>
@@ -341,22 +368,40 @@ function App() {
             <div>
               <p>Informe o numero de estrelas: <input type="number" value={quantidadeEstrela} onChange={e =>setQuantidadeEstrela(Number(e.target.value))} /></p>
             </div>
-              <button onClick={linha}>AA</button>
+              <button onClick={linha}className='calcular-botao'>Calcular</button>
             <h3>
               {re}
             </h3>
         </div>
         <div>
-          <h1>RETANGULO DI CRIA</h1>
+          <h1>RETÂNGULO</h1>
+        <p>Base</p>
+            <input type='number' value={linhas} onChange={e => setLinhas(e.target.value)}/>
+
+            <p>Altura</p>
+            <input type='number' value={coluna} onChange={e => setColuna(e.target.value)}/>
+
+            <select onChange={e => setOpcao(e.target.value)}>
+                <option value='imagem'>imagem</option>
+                <option value='quadrado'>Quadrado</option>
+                <option value='asterisco'>Asteristico</option>
+            </select>
+
+            <button onClick={calcularRetangulo} className='calcular-botao'>Calcular</button>
+            <div>
+            {resulRetangulo.map (item =>{
+            if(opcao === 'imagem') return <div><img src="../images/lula-sorrindo-com-bone-preto-escrito-cpx-em-vermelho_1_51105.jpg" width={100}/></div>
+            else return <p> {item}</p>
+            })}
+            </div>
+        </div>
+        <div>
+          <h1>QUERO CAFÉÉÉ</h1>
           <div>
-            <p>Informe o número de colunas: <input type="number" value={qtdcoluna} onChange={e =>setQtdcoluna(Number(e.target.value))} /></p>
+            <p>Informe a quantidade alunos: <input type="number" value={qtdAluno} onChange={e =>setQtdAluno(Number(e.target.value))} /></p>
           </div>
           <div>
-            <p>infome o número de linhas: <input type="number" value={qtdlinha} onChange={e =>setQtdlinha(Number(e.target.value))} /></p>
-          </div>
-          <button onClick={retangulo}>Resultado</button>
-          <div>
-            {resullinha}
+            <p>Informe a quantidade de litros de café: <input type="number" value={qtdLitros} onChange={e =>setQtdLitros(Number(e.target.value))}/></p>
           </div>
         </div>
     </div>
