@@ -65,6 +65,13 @@ function App() {
   const[qtdAluno,setQtdAluno]=useState();
   const[qtdLitros,setQtdLitros]=useState();
   const[qtdMinimo,setQtdMinimo]=useState();
+  const[cafeResul, setCafeResul]=useState();
+
+  const [entrada, setEntrada] = useState();
+  const [empreendimento, setEmpreendimento] = useState();
+  const [taxa, setTaxa] = useState();
+  const [periodo, setPeriodo] = useState();
+
 
   function Calcular(){
     let total = pequeno * 13.50  + medio * 15 + grande * 17.50;
@@ -225,16 +232,23 @@ function desenharRetangulo(l,c,simbolo){
   }
   return matriz;
 }
-function calcularRetangulo(){
 
-  setResposta(desenharRetangulo (linhas,coluna, opcao==='asterisco' ? '*' : '▆') );
-
-}
 
 
 
   function cafe(){
+    let a = qtdMinimo / 1000;
+    let b = a * qtdAluno;
+    let c = b / qtdLitros;
 
+    for(let i=0; i>0; i--){
+      c[i] = 0
+    }
+    setCafeResul(c);
+ }
+
+  function juros(){
+    
   }
       
 
@@ -364,7 +378,7 @@ function calcularRetangulo(){
           <h3>{totalnumero}</h3>
         </div>
         <div>
-          <h1>LEIA AS ESTRELINHA </h1>
+          <h1>LEIA AS ESTRELINHAS</h1>
             <div>
               <p>Informe o numero de estrelas: <input type="number" value={quantidadeEstrela} onChange={e =>setQuantidadeEstrela(Number(e.target.value))} /></p>
             </div>
@@ -387,7 +401,7 @@ function calcularRetangulo(){
                 <option value='asterisco'>Asteristico</option>
             </select>
 
-            <button onClick={calcularRetangulo} className='calcular-botao'>Calcular</button>
+            <button className='calcular-botao'>Calcular</button>
             <div>
             {resulRetangulo.map (item =>{
             if(opcao === 'imagem') return <div><img src="../images/lula-sorrindo-com-bone-preto-escrito-cpx-em-vermelho_1_51105.jpg" width={100}/></div>
@@ -403,6 +417,28 @@ function calcularRetangulo(){
           <div>
             <p>Informe a quantidade de litros de café: <input type="number" value={qtdLitros} onChange={e =>setQtdLitros(Number(e.target.value))}/></p>
           </div>
+          <div>
+            <p>Cada estudante bebe quantos ml: <input type="number" value={qtdMinimo} onChange={e =>setQtdMinimo(Number(e.target.value))}/></p>
+          </div>
+          <button onClick={cafe} className='calcular-botao'>Calcular</button>
+          <h3>{cafeResul}</h3>
+        </div>
+        <div>
+          <h1>JUROS</h1>
+          <div>
+            <p>Informe o valor de entrada: <input type="number" value={entrada } onChange={e =>setEntrada(Number(e.target.value))}/></p>
+          </div>
+          <div>
+            <p>Informe o valor do empreendimento: <input type="number" value={empreendimento} onChange={e =>setEmpreendimento(Number(e.target.value))}/></p>
+          </div>
+          <div>
+            <p>Informe o valor da taxa anual: <input type="number" value={taxa} onChange={e =>setTaxa(Number(e.target.value))}/></p>
+          </div>
+          <div>
+            <p>Informe o período: <input type="number" value={periodo} onChange={e =>setPeriodo(Number(e.target.value))}/></p>
+          </div>
+          <button onClick={juros} className='calcular-botao'>Calcular</button>
+          <h3>{cinemaResul}</h3>
         </div>
     </div>
  );
