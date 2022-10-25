@@ -1,4 +1,6 @@
 
+
+
 import { useEffect, useState } from 'react';
 import './App.css';
 import Acai from './assets/images/acai.png'
@@ -9,7 +11,9 @@ import Carro from './assets/images/carro.jpg'
 import Temp from './assets/images/temp.jpg'
 import Orcamentozinho from './assets/images/orcamento.jpg'
 import Cinemaa from './assets/images/cinema.jpg'
-import usestate from 'usestate';
+import Maior from './boletim';
+import Menor from './boletim';
+import Mediaa from './boletim'
 
 function App() {
   const[grande, setGrande]= useState(0);
@@ -71,6 +75,14 @@ function App() {
   const [empreendimento, setEmpreendimento] = useState();
   const [taxa, setTaxa] = useState();
   const [periodo, setPeriodo] = useState();
+
+  const [mostrar, setMostrar] = useState(false);
+  const [mostrar2, setMostrar2] = useState(false);
+  const [mediadia, setMediadia] = useState(0);
+  const [qtdAluninho, setQtdAluninho] = useState();
+  const [resulAluninho, setResulAluninho] = useState();
+
+ 
 
 
   function Calcular(){
@@ -218,6 +230,13 @@ function App() {
     setRe(x);
   }
 
+  function aparecerBoletim(){
+    let a = [];
+    for(let i=0; i=qtdAluninho; i++){
+      a.push([]);
+    }
+  }
+
 function desenharRetangulo(l,c,simbolo){
   let matriz = []
   let retangulo = [];
@@ -249,6 +268,14 @@ function desenharRetangulo(l,c,simbolo){
 
   function juros(){
     
+  }
+
+  function exibir (){
+    setMostrar(true);
+  }
+
+  function exibir2 (){
+    setMostrar2(true);
   }
       
 
@@ -440,6 +467,27 @@ function desenharRetangulo(l,c,simbolo){
           <button onClick={juros} className='calcular-botao'>Calcular</button>
           <h3>{cinemaResul}</h3>
         </div>
+        <div>
+          <h1>BOLETIM ALUNO</h1>  
+          <p>Quantidade de alunos: <input type='number'  value={qtdAluninho} onChange={e =>setQtdAluninho(Number(e.target.value))}/></p> 
+          
+          <button onClick={exibir}> Abrir </button>
+          
+        {mostrar === true &&
+          <div>
+            <p> Nota do Aluno{qtdAluninho}:<input type='number' /></p>
+            <button onClick={exibir2}>CALCULAR</button>
+        {mostrar2 === true &&
+          <div>
+            <p> Média:<input type='number' value={mediadia} onChange={e =>setMediadia(Number(e.target.value))}/></p>
+           
+          </div>}
+          </div>}
+          
+        </div>
+
+
+        
     </div>
  );
     }
